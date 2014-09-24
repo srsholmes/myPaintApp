@@ -28,7 +28,7 @@ module.exports = function(ƒ) {
 
     function eventListeners () {
 
-    	//Set up the events for the various colours.
+    	//Set up the click events for the various colours.
     	var colorPallette = d.querySelectorAll('.color');
 
 	    for (var i = 0; i < colorPallette.length; ++i) {
@@ -80,43 +80,8 @@ module.exports = function(ƒ) {
 		}
 	}
 
-	function colorChoose(color) {
-		console.log('color choose' , color)
-	    switch (color) {
-	        case 'red':
-	            color = 'red';
-	            console.log('sjsjs')
-	            break;
-	        case 'blue':
-	            color = 'blue';
-	            break;
-	        case 'orange':
-	            color = 'orange';
-	            break;
-	        case 'yellow':
-	            color = 'yellow';
-	            break;
-	        case 'orange':
-	            color = 'orange';
-	            break;
-	        case 'brown':
-	            color = 'brown';
-	            break;
-	        case 'cyan':
-	            color = 'cyan';
-	            break;
-	        case 'purple':
-	            color = 'purple';
-	            break;
-	        case 'black':
-	            color = 'black';
-	            break;
-	        case 'white':
-	            color = 'white';
-	            break;
-	    }
-
-	    console.log('cunt bag ' , color)
+	function colorChoose(c) {
+	    color = c;
 	    if (color == 'white') lineWidth = 10;
 	    else lineWidth = 2;
 	}
