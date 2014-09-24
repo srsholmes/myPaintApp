@@ -2,3 +2,31 @@
 /* 	Global styles, yeah?
 /* ======================================= */
 
+.wrapper {
+	position: relative;
+}
+
+canvas {
+	position: relative;
+	border: 2px solid;
+	margin: auto;
+	width: 500px;
+	height: 500px;
+	display: block;
+	margin-bottom: 20px;
+}
+
+.colors-wrapper {
+	position: relative;
+	width: 60%;
+	margin: auto;
+	text-align: center;
+	a {
+		display: inline-block;
+		margin-right: 10px;
+		height: 40px;
+		width: 40px;
+		border: 2px solid;
+		cursor: pointer;
+	}
+}
