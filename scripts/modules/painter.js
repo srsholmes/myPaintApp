@@ -26,9 +26,6 @@ module.exports = function(ƒ) {
 	}
 
     function eventListeners () {
-
-
-
     	//Set up the click events for the various colours.
     	var colorPallette = d.querySelectorAll('.color');
 
@@ -40,12 +37,11 @@ module.exports = function(ƒ) {
 		}
 
 		//Save / clear
-
 		var saveButton = d.querySelector('a.save'),
 			clearButton = d.querySelector('a.clear');
 
 		saveButton.addEventListener('click', saveImage, false);
-		clearButton.addEventListener('click', clearImage, false);
+		clearButton.addEventListener('click', clearImages, false);
 
 		//Canvas events
 	    canvas.addEventListener('mousemove', function (e) {
@@ -60,9 +56,6 @@ module.exports = function(ƒ) {
 	    canvas.addEventListener('mouseout', function (e) {
 	        findPos('out', e)
 	    }, false);
-
-	    
-
 	}
 
 	//Set up the color nubbins and put them in the DOM.
@@ -161,12 +154,9 @@ module.exports = function(ƒ) {
 		controls.appendChild(image);
 	}
 
-	function clearImage() {
+	function clearImages() {
 		ctx.clearRect(0, 0, w, h);
         var images = d.querySelectorAll('.saved-image');
-        console.log(images)
-        // images.parentNode.removeChild(images);
-
         for (var i = 0; i < images.length; ++i) {
 		  	images[i].parentNode.removeChild(images[i]);
 		}
