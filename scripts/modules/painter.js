@@ -41,8 +41,11 @@ module.exports = function(ƒ) {
 
 		//Save / clear
 
-		var saveButton = d.querySelector('a.save');
+		var saveButton = d.querySelector('a.save'),
+			clearButton = d.querySelector('a.clear');
+
 		saveButton.addEventListener('click', saveImage, false);
+		clearButton.addEventListener('click', clearImage, false);
 
 		//Canvas events
 	    canvas.addEventListener('mousemove', function (e) {
@@ -94,7 +97,7 @@ module.exports = function(ƒ) {
 	    else lineWidth = 2;
 	}
 
-	function findPos (i, e) {
+	function findPos(i, e) {
 
 
 	    //Deal with user just clicking and not moving mouse
@@ -122,7 +125,7 @@ module.exports = function(ƒ) {
 	    }
 	}
 
-	function dotDraw (i,e) {
+	function dotDraw(i,e) {
 		prevX = currX;
     	prevY = currY;
     	currX = e.clientX - canvas.offsetLeft;
@@ -149,15 +152,24 @@ module.exports = function(ƒ) {
 	}
 
 	function saveImage () {
-		console.log('save')
 		var image = new Image(500, 500),
 			controls = d.querySelector('.controls'),
 			dataURL = canvas.toDataURL();
-
 		image.className = ' saved-image';
+		image.style.display = 'block';
 		image.src = dataURL;
 		controls.appendChild(image);
+	}
 
+	function clearImage() {
+		ctx.clearRect(0, 0, w, h);
+        var images = d.querySelectorAll('.saved-image');
+        console.log(images)
+        // images.parentNode.removeChild(images);
+
+        for (var i = 0; i < images.length; ++i) {
+		  	images[i].parentNode.removeChild(images[i]);
+		}
 	}
 
 
