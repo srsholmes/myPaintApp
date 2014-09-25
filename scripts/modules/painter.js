@@ -21,12 +21,13 @@ module.exports = function(ƒ) {
     	ctx = canvas.getContext('2d');
 	    w = canvas.width;
 	    h = canvas.height;
-	    setUpColours();
+	    setUpColors();
 	    eventListeners();
-
-    }
+	}
 
     function eventListeners () {
+
+
 
     	//Set up the click events for the various colours.
     	var colorPallette = d.querySelectorAll('.color');
@@ -38,6 +39,12 @@ module.exports = function(ƒ) {
 		    }, false);
 		}
 
+		//Save / clear
+
+		var saveButton = d.querySelector('a.save');
+		saveButton.addEventListener('click', saveImage, false);
+
+		//Canvas events
 	    canvas.addEventListener('mousemove', function (e) {
 	        findPos('move', e)
 	    }, false);
@@ -55,7 +62,8 @@ module.exports = function(ƒ) {
 
 	}
 
-	function setUpColours () {
+	//Set up the color nubbins and put them in the DOM.
+	function setUpColors () {
 		var colors = [
 			'red',
 			'orange',
@@ -130,10 +138,7 @@ module.exports = function(ƒ) {
         }
 	}
 
-
-
 	function draw() {
-		console.log(color)
 	    ctx.beginPath();
 	    ctx.moveTo(prevX, prevY);
 	    ctx.lineTo(currX, currY);
@@ -143,6 +148,17 @@ module.exports = function(ƒ) {
 	    ctx.closePath();
 	}
 
+	function saveImage () {
+		console.log('save')
+		var image = new Image(500, 500),
+			controls = d.querySelector('.controls'),
+			dataURL = canvas.toDataURL();
+
+		image.className = ' saved-image';
+		image.src = dataURL;
+		controls.appendChild(image);
+
+	}
 
 
     return {
