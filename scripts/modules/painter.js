@@ -69,6 +69,7 @@ module.exports = function(ƒ) {
 			var img = new Image();
 			img.onload = function() {
 
+				//To do, handle larger images, find aspect ratio and make the image smaller (with same aspect ratio)
 				if (img.width > 500 || img.height >500 ) {
 					alert('Please use an image of maximum 500x500');
 					return;
