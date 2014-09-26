@@ -12,10 +12,10 @@ module.exports = function(ƒ) {
 	    currY = 0,
 	    dotDrawing = false, 
 	    color = 'black', 
-	    lineWidth = 2;
+	    lineWidth = 2,
+	    imageLoader = d.querySelector('.imageLoader');
 
 	//Set up the canvas    
-
     function init() {
     	canvas = d.querySelector('canvas');
     	ctx = canvas.getContext('2d');
@@ -25,6 +25,7 @@ module.exports = function(ƒ) {
 	    eventListeners();
 	}
 
+	//Listen for events
     function eventListeners () {
     	//Set up the click events for the various colours.
     	var colorPallette = d.querySelectorAll('.color');
@@ -35,6 +36,9 @@ module.exports = function(ƒ) {
 		       colorChoose(colorChosen);
 		    }, false);
 		}
+
+		//File upload
+		imageLoader.addEventListener('change', imageUpload, false);
 
 		//Save / clear
 		var saveButton = d.querySelector('a.save'),
@@ -56,6 +60,46 @@ module.exports = function(ƒ) {
 	    canvas.addEventListener('mouseout', function (e) {
 	        findPos('out', e)
 	    }, false);
+	}
+
+	//Image uploader 
+	function imageUpload(e) {
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			var img = new Image();
+			img.onload = function() {
+
+				if (img.width > 500 || img.height >500 ) {
+					alert('Please use an image of maximum 500x500');
+					return;
+				} else {
+					console.log(img.width, img.height);
+					//Center the uploaded image in the canvas
+	            	var coOrds = calculatePos(img.width, img.height);
+	           		ctx.drawImage(img,coOrds[0],coOrds[1]);
+				} 	   			
+			}
+			img.src = e.target.result;
+		}
+		reader.readAsDataURL(e.target.files[0]); 
+	}
+
+	function calculatePos(w,h) {
+    	var canvas = d.querySelector('canvas');
+    		canvasWidth = canvas.width,
+	    	canvasHeight = canvas.height,
+	    	imageWidth = w,
+	    	imageHeight = h;
+
+	    var xPos = (canvasWidth - imageWidth)/2;
+	    var yPos = (canvasHeight - imageHeight)/2;
+	    return[xPos, yPos]
+	}
+
+	//To do, calculate the aspect ratio of image and resize accordingly.
+
+	function calculateImage(image) {
+		console.log(image);
 	}
 
 	//Set up the color nubbins and put them in the DOM.
@@ -146,7 +190,7 @@ module.exports = function(ƒ) {
 
 	function saveImage () {
 		var image = new Image(500, 500),
-			controls = d.querySelector('.controls'),
+			controls = d.querySelector('.upload-form'),
 			dataURL = canvas.toDataURL();
 		image.className = ' saved-image';
 		image.style.display = 'block';
